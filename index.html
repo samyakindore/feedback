@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samyak Computer Classes - Student Feedback Form</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header / Hero Section - White background with Blue Text */
+        header {
+            background-color: #ffffff;
+            color: #0d6efd;
+            padding: 35px 20px 25px 20px;
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .logo-container {
+            margin-bottom: 12px;
+        }
+
+        .brand-logo {
+            max-width: 170px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 4px;
+            color: #003580;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        /* Solid Vibrant Yellow Branch Tag */
+        .branch-tag {
+            background-color: #ffc107;
+            color: #212529;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(255, 193, 7, 0.4);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background-color: #ffffff;
+            border-left: 5px solid #0d6efd;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .welcome-card h3 {
+            color: #003580;
+            margin-bottom: 6px;
+            font-size: 1.25rem;
+        }
+
+        .welcome-card p {
+            color: #555;
+            font-size: 0.98rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .form-section h2 {
+            color: #003580;
+            margin-bottom: 20px;
+            font-size: 1.45rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            background-color: #fff;
+            transition: all 0.2s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13,110,253,0.2);
+        }
+
+        /* Rating Stars Style */
+        .star-rating-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .star-rating-title {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .star-rating {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            gap: 8px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 2.2rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+
+        button.btn-submit {
+            width: 100%;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button.btn-submit:hover {
+            background-color: #0b5ed7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #343a40;
+            color: #adb5bd;
+            margin-top: 50px;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .form-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Samyak Computer Classes Logo" class="brand-logo" onerror="this.style.display='none'">
+        </div>
+        <h1>Samyak Computer Classes</h1>
+        <p>स्किल भी, करियर भी</p>
+        <span class="branch-tag">Bhanwarkua Branch, Indore</span>
+    </header>
+
+    <div class="container">
+
+        <div class="welcome-card">
+            <h3>We Value Your Feedback!</h3>
+            <p>Please share your honest experience regarding your course, trainer, and training environment. Your inputs help us continuously improve.</p>
+        </div>
+
+        <div class="form-section">
+            <h2>Student Feedback Form</h2>
+
+            <!-- Update action URL to your Google Apps Script or Formspree endpoint -->
+            <form id="feedback-form" action="https://script.google.com/macros/s/AKfycbyE3mQsvzY1h5HZTCcnqUeyO2wZHyuDS-bwSGHc0cd-9kL8b10tOB-idun_Wn6gE9nP/exec" method="POST">
+
+                <div class="form-grid">
+                    
+                    <!-- Student Name -->
+                    <div class="form-group">
+                        <label for="student-name">Student Full Name *</label>
+                        <input type="text" id="student-name" name="studentname" placeholder="Enter your full name" required>
+                    </div>
+
+                    <!-- Contact Number -->
+                    <div class="form-group">
+                        <label for="student-phone">Mobile Number *</label>
+                        <input type="tel" id="student-phone" name="mobileno" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                    </div>
+
+                    <!-- Enrolled Course -->
+                    <div class="form-group">
+                        <label for="course-name">Enrolled Course *</label>
+                        <select id="course-name" name="coursename" required>
+                            <option value="" disabled selected>Select Your Course</option>
+                            <option value="Tally Prime with GST">Tally Prime with GST</option>
+                            <option value="Financial Accounting">Financial Accounting</option>
+                            <option value="Advance Diploma in Finance Accounting">Advance Diploma in Finance Accounting</option>
+                            <option value="Data Analytics (Power BI / SQL)">Data Analytics (Power BI / SQL)</option>
+                            <option value="Data Science & AI / ML">Data Science & AI / ML</option>
+                            <option value="Advanced Excel">Advanced Excel</option>
+                            <option value="Full Stack Development (Java / Python)">Full Stack Development (Java / Python)</option>
+                            <option value="MERN Stack Development">MERN Stack Development</option>
+                            <option value="Python / Core Java / C / C++">Python / Core Java / C / C++</option>
+                            <option value="Web Development & React JS">Web Development & React JS</option>
+                            <option value="Graphic Designing">Graphic Designing</option>
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="Basic Computer & MS Office">Basic Computer & MS Office</option>
+                            <option value="DCA / ADCA Diploma">DCA / ADCA Diploma</option>
+                        </select>
+                    </div>
+
+                    <!-- Trainer Name -->
+                    <div class="form-group">
+                        <label for="trainer-name">Trainer / Instructor Name *</label>
+                        <input type="text" id="trainer-name" name="trainername" placeholder="Enter instructor name" required>
+                    </div>
+
+                </div>
+
+                <!-- Overall Interactive Star Rating -->
+                <div class="star-rating-container">
+                    <span class="star-rating-title">Overall Training Satisfaction Rating *</span>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5 Stars" required><label for="star5" title="5 Stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4 Stars"><label for="star4" title="4 Stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3 Stars"><label for="star3" title="3 Stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2 Stars"><label for="star2" title="2 Stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1 Star"><label for="star1" title="1 Star">★</label>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+
+                    <!-- Teaching Pace -->
+                    <div class="form-group">
+                        <label for="teaching-pace">How is the Teaching Pace?</label>
+                        <select id="teaching-pace" name="pace">
+                            <option value="" disabled selected>Select Pace</option>
+                            <option value="Too Fast">Too Fast</option>
+                            <option value="Just Right / Perfect">Just Right / Perfect</option>
+                            <option value="Too Slow">Too Slow</option>
+                        </select>
+                    </div>
+
+                    <!-- Doubt Clearing Satisfaction -->
+                    <div class="form-group">
+                        <label for="doubt-clearing">Doubt Clearing & Support</label>
+                        <select id="doubt-clearing" name="doubtclearing">
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="Excellent">Excellent</option>
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="Needs Improvement">Needs Improvement</option>
+                        </select>
+                    </div>
+
+                    <!-- Lab & Practical Facilities -->
+                    <div class="form-group full-width">
+                        <label for="lab-facility">Lab & Infrastructure Quality</label>
+                        <select id="lab-facility" name="labfacility">
+                            <option value="" disabled selected>Select Quality</option>
+                            <option value="Excellent (PCs & Software Working Well)">Excellent (PCs & Software Working Well)</option>
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="Poor (System / Internet Issues)">Poor (System / Internet Issues)</option>
+                        </select>
+                    </div>
+
+                    <!-- Open Feedback Text Area -->
+                    <div class="form-group full-width">
+                        <label for="feedback-comments">Detailed Feedback / Suggestions for Improvement</label>
+                        <textarea id="feedback-comments" name="comments" placeholder="Tell us what you liked or how we can improve your training experience..."></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-submit">Submit Feedback</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('feedback-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            submitBtn.textContent = "Submitting Feedback...";
+            submitBtn.disabled = true;
+
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    alert('Thank you! Your feedback has been successfully submitted.');
+                    form.reset();
+                } else {
+                    alert('Error saving feedback: ' + (data.error || 'Please try again.'));
+                }
+            })
+            .catch(error => {
+                alert('Thank you! Your feedback has been submitted successfully.');
+                form.reset();
+            })
+            .finally(() => {
+                submitBtn.textContent = "Submit Feedback";
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2026 Samyak Computer Classes - Bhanwarkua, Indore. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

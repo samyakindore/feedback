@@ -192,13 +192,14 @@
             color: #ffc107;
         }
 
-        /* Clean Card-Based Refer & Earn Section Styles */
+        /* Clean Card-Based Refer & Earn Section Styles with strict container containment */
         .referral-section {
             background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
             border: 2px dashed #ffc107;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 25px;
+            overflow: hidden; /* Prevents card content spillage */
         }
 
         .referral-title {
@@ -216,14 +217,20 @@
             line-height: 1.4;
         }
 
+        #referrals-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 15px;
+        }
+
         .referral-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 12px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            position: relative;
+            width: 100%;
         }
 
         .referral-card-header {
@@ -236,8 +243,27 @@
             color: #003580;
         }
 
-        .referral-card .form-grid {
-            margin-bottom: 0;
+        /* Fixed 2-Column Grid confined securely inside form boundaries */
+        .referral-fields-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .referral-fields-grid input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: #fff;
+        }
+
+        .referral-fields-grid input:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13,110,253,0.2);
         }
 
         .btn-add-more {
@@ -249,7 +275,6 @@
             font-weight: 700;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 5px;
             transition: background 0.2s;
             display: inline-block;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -300,9 +325,13 @@
             font-size: 0.88rem;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             header h1 { font-size: 1.8rem; }
             .form-section { padding: 20px; }
+            .referral-fields-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -431,24 +460,20 @@
                     </div>
                 </div>
 
-                <!-- DYNAMIC CARD-BASED REFER & EARN SECTION -->
+                <!-- NICE CARD REFERRAL SECTION WITH NO SPILLOVER -->
                 <div class="referral-section">
                     <span class="referral-title">🎁 Refer & Earn Offer (Optional)</span>
                     <p class="referral-banner-text">Want to help friends or family build their career? Refer them to Samyak Computer Classes and <strong>earn up to ₹2,000 per referral</strong> (based on course value) when they take admission!</p>
                     
                     <div id="referrals-container">
-                        <!-- Initial Referral Card -->
+                        <!-- Initial Card -->
                         <div class="referral-card">
                             <div class="referral-card-header">
                                 <span>Referral 1</span>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group" style="margin-bottom: 0;">
-                                    <input type="text" class="ref-name" placeholder="Full Name (Friend, Family, etc.)">
-                                </div>
-                                <div class="form-group" style="margin-bottom: 0;">
-                                    <input type="tel" class="ref-phone" placeholder="10-digit Mobile No." pattern="[0-9]{10}">
-                                </div>
+                            <div class="referral-fields-grid">
+                                <input type="text" class="ref-name" placeholder="Full Name (Friend, Family, etc.)">
+                                <input type="tel" class="ref-phone" placeholder="10-digit Mobile No." pattern="[0-9]{10}">
                             </div>
                         </div>
                     </div>
@@ -466,7 +491,7 @@
     </div>
 
     <script>
-        // Dynamic Card-Based Referral Addition logic
+        // Dynamic Card Addition logic maintaining strict boundary widths
         document.getElementById('add-referral-btn').addEventListener('click', function() {
             const container = document.getElementById('referrals-container');
             const referralCount = container.children.length + 1;
@@ -478,13 +503,9 @@
                     <span>Referral ${referralCount}</span>
                     <button type="button" class="btn-remove" onclick="removeReferralCard(this)">Remove</button>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <input type="text" class="ref-name" placeholder="Full Name (Friend, Family, etc.)">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <input type="tel" class="ref-phone" placeholder="10-digit Mobile No." pattern="[0-9]{10}">
-                    </div>
+                <div class="referral-fields-grid">
+                    <input type="text" class="ref-name" placeholder="Full Name (Friend, Family, etc.)">
+                    <input type="tel" class="ref-phone" placeholder="10-digit Mobile No." pattern="[0-9]{10}">
                 </div>
             `;
             container.appendChild(newCard);

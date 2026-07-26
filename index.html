@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samyak Computer Classes - Student Feedback Form</title>
+    <title>Samyak Computer Classes - Student Feedback & Referral Form</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -19,7 +19,7 @@
             line-height: 1.6;
         }
 
-        /* Header / Hero Section - White background with Blue Text */
+        /* Header / Hero Section */
         header {
             background-color: #ffffff;
             color: #0d6efd;
@@ -52,7 +52,6 @@
             font-weight: 600;
         }
 
-        /* Solid Vibrant Yellow Branch Tag */
         .branch-tag {
             background-color: #ffc107;
             color: #212529;
@@ -193,6 +192,77 @@
             color: #ffc107;
         }
 
+        /* Refer & Earn Dynamic Section Styles */
+        .referral-section {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border: 2px dashed #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .referral-title {
+            color: #b78103;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .referral-banner-text {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .referral-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .referral-row input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 0.95rem;
+        }
+
+        .btn-add-more {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+            padding: 8px 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+
+        .btn-add-more:hover {
+            background-color: #ffb300;
+        }
+
+        .btn-remove {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-remove:hover {
+            background-color: #bb2d3b;
+        }
+
         button.btn-submit {
             width: 100%;
             background-color: #0d6efd;
@@ -223,6 +293,7 @@
         @media (max-width: 600px) {
             header h1 { font-size: 1.8rem; }
             .form-section { padding: 20px; }
+            .referral-row { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -240,18 +311,17 @@
     <div class="container">
 
         <div class="welcome-card">
-            <h3>We Value Your Feedback!</h3>
-            <p>Please share your honest experience regarding your course, trainer, and training environment. Your inputs help us continuously improve.</p>
+            <h3>We Value Your Feedback & Support!</h3>
+            <p>Please share your honest experience regarding your course, trainer, and training environment. Plus, refer friends and earn rewards!</p>
         </div>
 
         <div class="form-section">
-            <h2>Student Feedback Form</h2>
+            <h2>Student Feedback & Referral Form</h2>
 
-            <!-- Update action URL to your Google Apps Script or Formspree endpoint -->
             <form id="feedback-form" action="https://script.google.com/macros/s/AKfycbzI3LlBGUQzrIv_7xbmJK3toggzXkNlun2K_iKKFATR6BT84JTDHnc22Yzv8AGecYTl/exec" method="POST">
-                <input type="hidden" name="formType" value="feedback">
+                <input type="hidden" name="formType" value="feedback_with_referral">
+                
                 <div class="form-grid">
-                    
                     <!-- Student Name -->
                     <div class="form-group">
                         <label for="student-name">Student Full Name *</label>
@@ -295,18 +365,6 @@
 
                 </div>
 
-                <!-- Overall Interactive Star Rating -->
-                <div class="star-rating-container">
-                    <span class="star-rating-title">Overall Training Satisfaction Rating *</span>
-                    <div class="star-rating">
-                        <input type="radio" id="star5" name="rating" value="5 Stars" required><label for="star5" title="5 Stars">★</label>
-                        <input type="radio" id="star4" name="rating" value="4 Stars"><label for="star4" title="4 Stars">★</label>
-                        <input type="radio" id="star3" name="rating" value="3 Stars"><label for="star3" title="3 Stars">★</label>
-                        <input type="radio" id="star2" name="rating" value="2 Stars"><label for="star2" title="2 Stars">★</label>
-                        <input type="radio" id="star1" name="rating" value="1 Star"><label for="star1" title="1 Star">★</label>
-                    </div>
-                </div>
-
                 <div class="form-grid">
 
                     <!-- Teaching Pace -->
@@ -347,25 +405,93 @@
                     <!-- Open Feedback Text Area -->
                     <div class="form-group full-width">
                         <label for="feedback-comments">Detailed Feedback / Suggestions for Improvement</label>
-                        <textarea id="feedback-comments" name="comments" placeholder="Tell us what you liked or how we can improve your training experience..."></textarea>
+                        <textarea id="feedback-comments" name="user_comments" placeholder="Tell us what you liked or how we can improve your training experience..."></textarea>
                     </div>
 
                 </div>
 
-                <button type="submit" id="submit-btn" class="btn-submit">Submit Feedback</button>
+                <!-- Overall Interactive Star Rating -->
+                <div class="star-rating-container">
+                    <span class="star-rating-title">Overall Training Satisfaction Rating *</span>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5 Stars" required><label for="star5" title="5 Stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4 Stars"><label for="star4" title="4 Stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3 Stars"><label for="star3" title="3 Stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2 Stars"><label for="star2" title="2 Stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1 Star"><label for="star1" title="1 Star">★</label>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC REFER & EARN SECTION -->
+                <div class="referral-section">
+                    <span class="referral-title">🎁 Refer & Earn Offer (Optional)</span>
+                    <p class="referral-banner-text">Want to help friends build their career? Refer them to Samyak Computer Classes and <strong>earn up to ₹2,000 per referral</strong> (based on course value) when they take admission!</p>
+                    
+                    <div id="referrals-container">
+                        <!-- Initial Referral Row -->
+                        <div class="referral-row">
+                            <input type="text" class="ref-name" placeholder="Friend's Full Name">
+                            <input type="tel" class="ref-phone" placeholder="Friend's 10-digit Mobile No." pattern="[0-9]{10}">
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="add-referral-btn" class="btn-add-more">+ Add Another Friend</button>
+                </div>
+
+                <!-- Final hidden input that consolidates comments + referrals into the existing 'comments' column parameter -->
+                <input type="hidden" id="comments" name="comments">
+
+                <button type="submit" id="submit-btn" class="btn-submit">Submit Feedback & Referrals</button>
             </form>
         </div>
 
     </div>
 
     <script>
+        // Dynamic Referral Row Addition logic
+        document.getElementById('add-referral-btn').addEventListener('click', function() {
+            const container = document.getElementById('referrals-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'referral-row';
+            newRow.innerHTML = `
+                <input type="text" class="ref-name" placeholder="Friend's Full Name">
+                <input type="tel" class="ref-phone" placeholder="Friend's 10-digit Mobile No." pattern="[0-9]{10}">
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">✕</button>
+            `;
+            container.appendChild(newRow);
+        });
+
         const form = document.getElementById('feedback-form');
         const submitBtn = document.getElementById('submit-btn');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); 
 
-            submitBtn.textContent = "Submitting Feedback...";
+            // Combine user's text comments and dynamic referrals into the single hidden 'comments' field
+            const userComments = document.getElementById('feedback-comments').value.trim();
+            const refNames = document.querySelectorAll('.ref-name');
+            const refPhones = document.querySelectorAll('.ref-phone');
+            
+            let referralListText = "";
+            let referralCount = 1;
+
+            for (let i = 0; i < refNames.length; i++) {
+                const name = refNames[i].value.trim();
+                const phone = refPhones[i].value.trim();
+                if (name !== "" || phone !== "") {
+                    referralListText += `[Referral ${referralCount} - Name: ${name || 'N/A'}, Phone: ${phone || 'N/A'}] `;
+                    referralCount++;
+                }
+            }
+
+            let finalCommentsString = userComments;
+            if (referralListText !== "") {
+                finalCommentsString += (finalCommentsString ? "\n\n" : "") + "--- Referrals --- \n" + referralListText;
+            }
+
+            document.getElementById('comments').value = finalCommentsString;
+
+            submitBtn.textContent = "Submitting...";
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
@@ -378,18 +504,18 @@
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
-                    alert('Thank you! Your feedback has been successfully submitted.');
+                    alert('Thank you! Your feedback and referrals have been successfully submitted.');
                     form.reset();
                 } else {
-                    alert('Error saving feedback: ' + (data.error || 'Please try again.'));
+                    alert('Error saving data: ' + (data.error || 'Please try again.'));
                 }
             })
             .catch(error => {
-                alert('Thank you! Your feedback has been submitted successfully.');
+                alert('Thank you! Your submission has been received successfully.');
                 form.reset();
             })
             .finally(() => {
-                submitBtn.textContent = "Submit Feedback";
+                submitBtn.textContent = "Submit Feedback & Referrals";
                 submitBtn.disabled = false;
             });
         });
